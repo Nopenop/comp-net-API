@@ -3,6 +3,8 @@
 import os
 import socket
 
+from numpy import flexible
+
 
 # IP = "192.168.1.101" #"localhost"
 IP = "localhost"
@@ -37,7 +39,14 @@ def main():
             break
 
         elif cmd == "UPLOAD":
-            client.send(cmd.encode(FORMAT))
+            file_name = input("Filename?")
+            print(file_name)
+            with open("client/" + file_name,'r') as file:
+                data = file.read()
+                if not data:
+                    print("Error: no information in file")
+                    break
+                client.send((cmd +"@" + msg + "@" + str(data)).encode()) 
 
         elif cmd == "DELETE":
             client.send(cmd.encode(FORMAT))

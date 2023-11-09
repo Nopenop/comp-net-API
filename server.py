@@ -37,7 +37,8 @@ def handle_client (conn,addr):
             conn.send(send_data.encode(FORMAT))
         
         elif cmd == "UPLOAD":
-            print("upload recieved")
+            with open("server/" + data[1],'+w') as file:
+                file.write(data[2])
             conn.send(send_data.encode(FORMAT))
 
         elif cmd == "DELETE":

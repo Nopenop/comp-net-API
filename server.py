@@ -45,8 +45,21 @@ def handle_client (conn,addr):
             conn.send(send_data.encode(FORMAT))
 
         elif cmd == "DELETE":
-            print("delete worked")
+            files = ""
+            #formats files into string
+            for file in os.listdir('server/'):
+                files = files + file + "@"
+            #sends string of all file names within server directory
+            conn.send(files.encode(FORMAT))
+            del_file = 0
+            #waits for client to send acceptable index
+            while not del_file:
+                del_file =  conn.recv(SIZE).decode(FORMAT)
+            #removes file
+            os.remove("server/" + del_file)
             conn.send(send_data.encode(FORMAT))
+
+
 
 
 

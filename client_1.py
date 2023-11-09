@@ -56,7 +56,27 @@ def main():
                 client.send((cmd +"@" + file_name + "@" + str(data)).encode()) 
 
         elif cmd == "DELETE":
+            #delete command
             client.send(cmd.encode(FORMAT))
+            files = 0
+            #waits for server to send list of files within server directory
+            while not files:
+                files = client.recv(SIZE).decode(FORMAT)
+            #creates a list of files sent by server
+            files = files.split("@")
+            i = 0
+            #lists files
+            for file in files:
+                print(f"{i}: {file}")
+                i+=1
+            while True:
+                #waits for user to send acceptable file index
+                i = int(input("File index:"))
+                if not files[i]:
+                    print("index not recognized")
+                else:
+                    client.send(files[i].encode(FORMAT))
+                    break
 
 
 

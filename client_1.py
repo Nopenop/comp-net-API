@@ -35,7 +35,12 @@ def main():
         elif cmd == "LOGOUT":
             client.send(cmd.encode(FORMAT))
             break
-      
+
+        elif cmd == "UPLOAD":
+            client.send(cmd.encode(FORMAT))
+
+        elif cmd == "DELETE":
+            client.send(cmd.encode(FORMAT))
 
 
 

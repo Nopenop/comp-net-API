@@ -34,7 +34,14 @@ def handle_client (conn,addr):
 
         elif cmd == "TASK": 
             send_data += "LOGOUT from the server.\n"
+            conn.send(send_data.encode(FORMAT))
+        
+        elif cmd == "UPLOAD":
+            print("upload recieved")
+            conn.send(send_data.encode(FORMAT))
 
+        elif cmd == "DELETE":
+            print("delete worked")
             conn.send(send_data.encode(FORMAT))
 
 

@@ -39,14 +39,21 @@ def main():
             break
 
         elif cmd == "UPLOAD":
+            #Asks user for filename within client directory(folder)
             file_name = input("Filename?")
-            print(file_name)
             with open("client/" + file_name,'r') as file:
+                #Reads the data from the client directory
                 data = file.read()
+                
+                #If there is no data from the file
+                #Stops client
                 if not data:
                     print("Error: no information in file")
                     break
-                client.send((cmd +"@" + msg + "@" + str(data)).encode()) 
+                
+                print("sends file")
+                #sends string with command, name of file, and data from file
+                client.send((cmd +"@" + file_name + "@" + str(data)).encode()) 
 
         elif cmd == "DELETE":
             client.send(cmd.encode(FORMAT))
